@@ -1,14 +1,10 @@
-import Head from 'next/head'
+"use server"
 import React from 'react'
-import { SampleComponent } from '../components/SampleComponent'
-import { Box, Container } from '@mantine/core'
+import { TestPage } from './TestPage'
+import { headers } from 'next/headers'
 
-export default function Home() {
-  return (
-    <Box>
-      <Container>
-        <SampleComponent />
-      </Container>
-    </Box>
-  )
+export default async function Home() {
+  const head = await headers()
+  const ua = head.get("user-agent") ?? "-"
+  return <TestPage ua={ua} />
 }
