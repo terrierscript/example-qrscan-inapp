@@ -2,6 +2,8 @@
 import { Box, Stack, Button, Container } from '@mantine/core'
 import Cookies from 'js-cookie'
 import React, { FC, useState } from 'react'
+import { detectIncognito } from "detectincognitojs"
+import useSWR from 'swr'
 
 const CookieCounter = () => {
   const cv = Number(Cookies.get("CNT"))
@@ -47,6 +49,12 @@ const Lcb = () => {
   return <LocalStorageCounter />
 
 }
+const Incog = () => {
+  const incog = useSWR("incog", () => detectIncognito())
+  return <Box>
+    Incog: {incog.data?.isPrivate} ({incog.data?.browserName})
+  </Box>
+}
 export const TestPage: FC<{ ua: string }> = ({ ua }) => {
 
   return (
@@ -54,6 +62,7 @@ export const TestPage: FC<{ ua: string }> = ({ ua }) => {
       <Container>
         <Stack>
           <Box>UA:{ua}</Box>
+          <Incog />
           <CookieCounter />
           <Lcb />
         </Stack>
