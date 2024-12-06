@@ -52,7 +52,7 @@ const Lcb = () => {
 const Incog = () => {
   const incog = useSWR("incog", () => detectIncognito())
   return <Box>
-    Incog: {incog.data?.isPrivate} ({incog.data?.browserName})
+    Incog: {incog.data?.isPrivate ? "Default" : "Private"} ({incog.data?.browserName})
   </Box>
 }
 export const TestPage: FC<{ ua: string }> = ({ ua }) => {
